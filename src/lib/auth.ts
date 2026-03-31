@@ -2,6 +2,9 @@ import { dbConnect } from "@/db/dbConfig";
 import { betterAuth } from "better-auth";
 import { mongodbAdapter } from "better-auth/adapters/mongodb";
 import { nextCookies } from "better-auth/next-js";
+import { emailOTP } from "better-auth/plugins";
+import { resend } from "./resend";
+import VerifyEmail from "@/components/auth/verifyEmailTemplate";
 
 const { client, db } = await dbConnect();
 
@@ -11,6 +14,24 @@ export const auth = betterAuth({
   }),
   emailAndPassword: {
     enabled: true,
+    requireEmailVerification: true,
   },
-  plugins: [nextCookies()],
+  plugins: [
+    nextCookies(),
+    emailOTP({
+      async sendVerificationOTP({ email, otp, type }) {
+        if (type === "email-verification") {
+          const { data, error } = await resend.emails.send({
+            from: "Vaidya LMS <onboarding@resend.dev>",
+            to: [email],
+            subject: "Vaidya LMS - Verify your email",
+            react: VerifyEmail({ otp }),
+          });
+          if (error) throw error;
+        }
+      },
+      sendVerificationOnSignUp: true,
+      expiresIn: 600,
+    }),
+  ],
 });

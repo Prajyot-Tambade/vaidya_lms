@@ -22,9 +22,10 @@ import { toast } from "sonner";
 import z from "zod";
 import { loginAction, signupAction } from "../actions";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const signupFormSchema = z.object({
-  email: z.string().email("Invalid email address"),
+  email: z.email("Invalid email address"),
 
   password: z
     .string()
@@ -115,7 +116,7 @@ const SignupPage = () => {
           </FieldGroup>
         </form>
       </CardContent>
-      <CardFooter>
+      <CardFooter className="flex-col gap-2">
         <Button
           disabled={form.formState.isSubmitting}
           type="submit"
@@ -124,6 +125,15 @@ const SignupPage = () => {
         >
           {form.formState.isSubmitting ? "Loading..." : "Signup"}
         </Button>
+        <div className="text-muted-foreground flex gap-1">
+          <p>Don't have an account? </p>
+          <Link
+            href="/signup"
+            className="underline underline-offset-2 hover:text-foreground"
+          >
+            Sign up
+          </Link>
+        </div>
       </CardFooter>
     </Card>
   );

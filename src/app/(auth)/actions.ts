@@ -82,3 +82,55 @@ export const logoutAction = async (): Promise<AuthActionResponse> => {
     };
   }
 };
+
+export const sendVerificationOTPAction = async ({
+  email,
+}: {
+  email: string;
+}): Promise<AuthActionResponse> => {
+  try {
+    await auth.api.sendVerificationOTP({
+      body: {
+        email,
+        type: "email-verification",
+      },
+    });
+    return {
+      success: true,
+      message: "OTP send in successfully!",
+    };
+  } catch (error: any) {
+    console.error("Error sending OTP: ", error);
+    return {
+      success: false,
+      message: error?.message || "Error while sending OTP!",
+    };
+  }
+};
+
+export const verifyEmailOTPAction = async ({
+  email,
+  otp,
+}: {
+  email: string;
+  otp: string;
+}): Promise<AuthActionResponse> => {
+  try {
+    await auth.api.verifyEmailOTP({
+      body: {
+        email,
+        otp,
+      },
+    });
+    return {
+      success: true,
+      message: "Email verified successfully!",
+    };
+  } catch (error: any) {
+    console.error("Error while verifying email: ", error);
+    return {
+      success: false,
+      message: error?.message || "Error while verifying email!",
+    };
+  }
+};

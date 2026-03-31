@@ -20,8 +20,9 @@ import React from "react";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import z from "zod";
-import { signupAction } from "../actions";
+import { sendVerificationOTPAction, signupAction } from "../actions";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const signupFormSchema = z
   .object({
@@ -70,7 +71,7 @@ const SignupPage = () => {
     const res = await signupAction({ name, email, password });
     if (res.success) {
       toast.success(res.message);
-      router.push("/login");
+      router.push(`/verify-email?email=${email}`);
     } else {
       toast.error(res.message);
     }
@@ -171,7 +172,7 @@ const SignupPage = () => {
           </FieldGroup>
         </form>
       </CardContent>
-      <CardFooter>
+      <CardFooter className="flex-col gap-2">
         <Button
           disabled={form.formState.isSubmitting}
           type="submit"
@@ -180,6 +181,15 @@ const SignupPage = () => {
         >
           {form.formState.isSubmitting ? "Loading..." : "Signup"}
         </Button>
+        <div className="text-muted-foreground flex gap-1">
+          <p>Already have an account? </p>
+          <Link
+            href="/login"
+            className="underline underline-offset-2 hover:text-foreground"
+          >
+            Login
+          </Link>
+        </div>
       </CardFooter>
     </Card>
   );
