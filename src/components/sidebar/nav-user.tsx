@@ -4,7 +4,6 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
@@ -17,7 +16,7 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { authClient } from "@/lib/auth-client";
-import { EllipsisVertical, LogOut } from "lucide-react";
+import { EllipsisVertical } from "lucide-react";
 import Logout from "../auth/logout";
 
 export function NavUser() {
@@ -34,18 +33,18 @@ export function NavUser() {
             <DropdownMenuTrigger asChild>
               <SidebarMenuButton
                 size="lg"
-                className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+                className="data-[state=open]:bg-sidebar-accent ring ring-neutral-800 data-[state=open]:text-sidebar-accent-foreground"
               >
                 <Avatar className="h-8 w-8 rounded-lg grayscale">
-                  <AvatarImage src={data?.user.avatar} alt={data?.user.name} />
+                  <AvatarImage src={data?.user?.image || ""} alt={data?.user.name} />
                   <AvatarFallback>{data?.user.name[0]}</AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-medium">
                     {data?.user.name}
                   </span>
-                  <span className="truncate text-xs text-muted-foreground">
-                    {data?.user.email}
+                  <span className="truncate text-xs text-muted-foreground capitalize">
+                    {data?.user.role}
                   </span>
                 </div>
                 <EllipsisVertical className="ml-auto size-4" />
@@ -61,7 +60,7 @@ export function NavUser() {
                 <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                   <Avatar className="h-8 w-8 rounded-lg">
                     <AvatarImage
-                      src={data?.user.avatar}
+                      src={data?.user?.image || ""}
                       alt={data?.user.name}
                     />
                     <AvatarFallback>{data?.user.name[0]}</AvatarFallback>
@@ -70,8 +69,8 @@ export function NavUser() {
                     <span className="truncate font-medium">
                       {data?.user.name}
                     </span>
-                    <span className="truncate text-xs text-muted-foreground">
-                      {data?.user.email}
+                    <span className="truncate text-xs text-muted-foreground capitalize">
+                      {data?.user.role}
                     </span>
                   </div>
                 </div>

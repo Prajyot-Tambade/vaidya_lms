@@ -2,7 +2,7 @@ import { dbConnect } from "@/db/dbConfig";
 import { betterAuth } from "better-auth";
 import { mongodbAdapter } from "better-auth/adapters/mongodb";
 import { nextCookies } from "better-auth/next-js";
-import { emailOTP } from "better-auth/plugins";
+import { admin, emailOTP } from "better-auth/plugins";
 import { resend } from "./resend";
 import VerifyEmail from "@/components/auth/verifyEmailTemplate";
 
@@ -15,6 +15,15 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
     requireEmailVerification: true,
+  },
+  user: {
+    additionalFields: {
+      role: {
+        type: 'string', 
+        required: true, 
+        defaultValue: 'user',
+      },
+    },
   },
   plugins: [
     nextCookies(),
@@ -32,6 +41,10 @@ export const auth = betterAuth({
       },
       sendVerificationOnSignUp: true,
       expiresIn: 600,
+    }),
+    admin({
+      defaultRole: "user",
+      adminUserIds: ["69cb5c66982468f6a83b84fe"],
     }),
   ],
 });

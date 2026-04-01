@@ -71,7 +71,8 @@ const SignupPage = () => {
     const res = await signupAction({ name, email, password });
     if (res.success) {
       toast.success(res.message);
-      router.push(`/verify-email?email=${email}`);
+      const encodedEmail = encodeURIComponent(email);
+      router.push(`/verify-email?email=${encodedEmail}`);
     } else {
       toast.error(res.message);
     }

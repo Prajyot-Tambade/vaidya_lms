@@ -25,7 +25,9 @@ const VerifyOTPPage = () => {
   const params = useSearchParams();
   const router = useRouter();
 
-  const email = params.get("email") || "";
+  const encodedEmail = params.get("email") || "";
+
+  const email = decodeURIComponent(encodedEmail);
 
   const verifyOTP = async () => {
     try {

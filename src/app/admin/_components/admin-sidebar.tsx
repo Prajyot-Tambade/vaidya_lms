@@ -16,30 +16,35 @@ import Link from "next/link";
 import {
   BookOpenText,
   FolderGit2,
+  GraduationCap,
   LayoutDashboard,
   MessageCircle,
   PlusCircleIcon,
 } from "lucide-react";
 import { usePathname } from "next/navigation";
-import { NavUser } from "./nav-user";
+import { NavUser } from "@/components/sidebar/nav-user";
 import { useTheme } from "next-themes";
-import { toast } from "sonner";
 
 const Nav = [
   {
     title: "Dashboard",
-    url: "#",
+    url: "/admin/dashboard",
     icon: LayoutDashboard,
   },
   {
-    title: "Courses",
+    title: "All Courses",
     url: "#",
     icon: BookOpenText,
   },
   {
-    title: "Projects",
+    title: "All Projects",
     url: "#",
     icon: FolderGit2,
+  },
+  {
+    title: "Teachers",
+    url: "/admin/teachers",
+    icon: GraduationCap,
   },
   {
     title: "Chat",
@@ -70,7 +75,7 @@ const Logo = () => {
 
 };
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function AdminSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const path = usePathname();
   const {themes} = useTheme()
   
@@ -97,17 +102,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <SidebarGroup>
           <SidebarGroupLabel>Workspace</SidebarGroupLabel>
           <SidebarGroupContent>
-            <SidebarMenu>
-              <SidebarMenuItem className="flex items-center gap-2">
-                <SidebarMenuButton
-                  tooltip="Quick Create"
-                  className="min-w-8 bg-primary text-primary-foreground duration-200 ease-linear hover:bg-primary/90 hover:text-primary-foreground active:bg-primary/90 active:text-primary-foreground"
-                >
-                  <PlusCircleIcon />
-                  <span className="font-semibold">Quick Create</span>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-            </SidebarMenu>
             <SidebarMenu>
               {Nav.map((navItem) => (
                 <SidebarMenuItem key={navItem.title}>
