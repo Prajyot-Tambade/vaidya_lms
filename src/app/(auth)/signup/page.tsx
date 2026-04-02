@@ -20,7 +20,7 @@ import React from "react";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import z from "zod";
-import { sendVerificationOTPAction, signupAction } from "../actions";
+import { signupAction } from "../actions";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 

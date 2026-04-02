@@ -131,7 +131,7 @@ const SignupPage = () => {
             href="/signup"
             className="underline underline-offset-2 hover:text-foreground"
           >
-            Sign up
+            Login
           </Link>
         </div>
       </CardFooter>

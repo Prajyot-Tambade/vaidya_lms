@@ -1,6 +1,7 @@
 import {
   Body,
   Container,
+  Font,
   Head,
   Heading,
   Html,
@@ -21,9 +22,20 @@ const baseUrl = process.env.VERCEL_URL
 
 export const VerifyEmail = ({ otp }: VerifyEmailProps) => (
   <Html>
-    <Head />
+    <Head>
+        <Font
+          fontFamily="Nunito"
+          fallbackFontFamily="Verdana"
+          webFont={{
+            url: "https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap",
+            format: "embedded-opentype",
+          }}
+          fontWeight={400}
+          fontStyle="normal"
+        />
+      </Head>
     <Tailwind>
-      <Body className="bg-white font-plaid">
+      <Body className="bg-white font-[Nunito]">
         <Container className="bg-white border border-solid border-[#eee] rounded shadow-[rgba(20,50,70,.2)] shadow-md mt-5 max-w-90 mx-auto my-0 pt-17 px-0 pb-32.5">
           {/* https://drive.google.com/file/d/1X2pGYaAlGqsTdJ86e4orDvcYTC393QD_/view?usp=sharing */}
           <Img
